@@ -94,27 +94,31 @@ const Home = () => {
   const handleMessageChange = (e) => {
     const messageInput = e.target.value;
 
-    if (isAlphabeticOrSpace(messageInput)) {
+    if (isAlphabeticOrSpace(messageInput) && messageInput.length < 75) {
       setMessage(messageInput);
-      setKeyError("");
+      setMessageError("");
+    } else if (!isAlphabeticOrSpace(messageInput)){
+      setMessageError("Message must be alphabetical")
     } else {
-      setKeyError("Message must be alphabetical")
+      setMessageError("Cannot exceed 75 characters")
     }
   };
 
   const handleKeyChange = (e) => {
     const keyInput = e.target.value;
 
-    if (isAlphabeticOnly(keyInput)) {
+    if (isAlphabeticOnly(keyInput) && keyInput.length < 75) {
       setKey(keyInput);
       setKeyError("");
+    } else if (!isAlphabeticOnly(keyInput)){
+      setKeyError("Invalid Key")
     } else {
-      setKeyError("Key must contain only alphabetical characters.");
+      setKeyError("Cannot exceed 75 characters")
     }
   };
 
   const handleFormEncryptSubmit = (e) => {
-    console.log(method)
+    console.log("Message", message)
     e.preventDefault();
     if (message === "") {
       setMessageError("Message must not be empty");
